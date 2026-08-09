@@ -21,9 +21,10 @@ int starlte_init(void)
 
 static struct video_info starlte_fb = {
 	.format = FB_FORMAT_ARGB8888,
-	.width = 2960,
-	.height = 1440,
+	.width = 1440,
+	.height = 2960,
 	.stride = 4,
+	.scale = 2,
 	.address = (void *)0xcc000000
 };
 
