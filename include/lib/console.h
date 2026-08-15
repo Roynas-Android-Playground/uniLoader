@@ -8,6 +8,7 @@
 
 struct console {
 	void (*write)(int level, const char *prefix, const char *msg);
+	void (*flush)(void);
 };
 
 void console_register(const struct console *con);
@@ -15,5 +16,6 @@ void console_register(const struct console *con);
 void earlycon_register(void);
 
 void early_console_init(void);
+void console_flush(void);
 
 #endif // CONSOLE_H_

@@ -53,6 +53,7 @@ static const char *log_prefix(int level)
 
 #ifdef CONFIG_EARLYCON
 extern void uart_puts(const char *s);
+__attribute__((weak)) void uart_flush(void) {}
 
 static void earlycon_write(int level, const char *prefix, const char *msg)
 {
@@ -64,6 +65,7 @@ static void earlycon_write(int level, const char *prefix, const char *msg)
 
 static const struct console earlycon = {
 	.write = earlycon_write,
+	.flush = uart_flush,
 };
 
 void earlycon_register(void)
@@ -78,6 +80,13 @@ void earlycon_register(void) {}
 __attribute__((weak)) void early_console_init(void)
 {
 	earlycon_register();
+}
+
+void console_flush(void)
+{
+	for (unsigned int i = 0; i < n_consoles; i++)
+		if (consoles[i]->flush)
+			consoles[i]->flush();
 }
 
 void printk(int log_level, const char *fmt, ...)
