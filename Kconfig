@@ -43,7 +43,52 @@ menu "Building options"
 		depends on EMBED_LINUX
 		default blob/Image
 		help
-		  Path to the kernel, which is going to get embedded to uniLoader
+		  Path to the kernel, which is going to get embedded to uniLoader.
+		  With kernel decompression enabled this may also be Image.gz,
+		  Image.lz4, or Image.xz.
+
+	config KERNEL_DECOMPRESS
+		bool "Decompress embedded Linux kernel payloads"
+		depends on EMBED_LINUX
+		default n
+		help
+		  Detect compressed kernel images by magic and decompress them into
+		  CONFIG_PAYLOAD_ENTRY before entering Linux. Raw Image payloads keep
+		  the historical direct-copy behavior.
+
+	if KERNEL_DECOMPRESS
+
+	config KERNEL_DECOMPRESS_GZIP
+		bool "gzip kernel payloads"
+		default y
+		help
+		  Support the Linux arm/arm64 Image.gz target.
+
+	config KERNEL_DECOMPRESS_LZ4
+		bool "LZ4 kernel payloads"
+		default y
+		help
+		  Support the legacy LZ4 framing emitted by the Linux Image.lz4
+		  target (lz4 -l).
+
+	config KERNEL_DECOMPRESS_XZ
+		bool "XZ kernel payloads"
+		default y
+		help
+		  Support Linux Image.xz using XZ Embedded in single-call mode,
+		  including the ARM and ARM64 BCJ filters used by xz_wrap.sh.
+
+	config KERNEL_DECOMPRESS_MAX_SIZE
+		int "Maximum decompressed kernel size in bytes"
+		range 1048576 536870912
+		default 67108864
+		help
+		  Maximum amount of memory a compressed payload may write starting
+		  at CONFIG_PAYLOAD_ENTRY. Choose a value that fits the board's free
+		  handoff memory and doesn't overlap the ramdisk, DT, framebuffer, or
+		  other reserved data. This limit doesn't apply to raw Image payloads.
+
+	endif
 
 	config DT_PATH
 		string "Path to device tree image"

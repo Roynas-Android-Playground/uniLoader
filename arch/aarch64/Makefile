@@ -3,4 +3,5 @@
 # Copyright (c) 2025 Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>
 
 obj-$(CONFIG_POSITION_INDEPENDENT) += aarch64/reloc.o
-obj-y += aarch64/start.o aarch64/load-kernel.o aarch64/memcpy.o
+obj-y += aarch64/start.o aarch64/exception-vectors.o \
+	aarch64/exception.o aarch64/load-kernel.o aarch64/memcpy.o

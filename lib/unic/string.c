@@ -53,6 +53,9 @@ void *memset (void *m, int c, size_t n)
 		s = (char*)aligned_addr;
 	}
 
+	while (n--)
+		*s++ = (char)c;
+
 	return m;
 }
 

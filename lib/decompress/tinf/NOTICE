@@ -1,0 +1,18 @@
+tinf 1.2.1 integration notice
+============================
+
+The files in this directory are derived from Joergen Ibsen's tinf 1.2.1 and
+remain under the zlib license carried in their source headers.
+
+These are altered source versions for uniLoader:
+
+* tinf.h: reduced to the API used by the boot-time gzip decoder.
+* tinflate.c: comments/test harness trimmed for the freestanding loader; the
+  inflate algorithm is unchanged.
+* tinfgzip.c: comments/formatting trimmed and bounds checks expressed in forms
+  suitable for the freestanding build.
+* crc32.c: formatting only.
+* assert.h: uniLoader shim which compiles tinf's internal assertions out because
+  the loader has no libc assertion handler.
+
+Original project: https://github.com/jibsen/tinf

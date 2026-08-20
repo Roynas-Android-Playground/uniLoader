@@ -41,6 +41,7 @@ ENTRY(_start)
 	str     xzr, [x0], #8
 	b       1b
 2:
+	bl	install_exception_vectors
 
 	/* Fall through */
 	adrp    x0, dtb             /* Load page of dtb */
