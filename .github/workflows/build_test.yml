@@ -28,3 +28,16 @@ jobs:
 
     - name: Run build_test.sh
       run: bash .github/workflows/build_test.sh
+
+  qemu-boot-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v5
+
+    - name: Install build and test dependencies
+      run: sudo apt install -y bash build-essential gcc-aarch64-linux-gnu qemu-system-arm lz4 xz-utils
+
+    - name: Run qemu_boot_test.sh
+      run: bash .github/workflows/qemu_boot_test.sh
