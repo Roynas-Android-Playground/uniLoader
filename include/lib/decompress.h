@@ -31,5 +31,6 @@ int kernel_payload_load(void *dst, size_t dst_size, const void *src,
 			enum kernel_payload_format *format);
 
 const char *kernel_payload_format_name(enum kernel_payload_format format);
+const char *kernel_payload_error_name(int error);
 
 #endif

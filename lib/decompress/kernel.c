@@ -54,6 +54,24 @@ const char *kernel_payload_format_name(enum kernel_payload_format format)
 	}
 }
 
+const char *kernel_payload_error_name(int error)
+{
+	switch (error) {
+	case KERNEL_PAYLOAD_OK:
+		return "OK";
+	case KERNEL_PAYLOAD_INVALID:
+		return "invalid/corrupt payload";
+	case KERNEL_PAYLOAD_NOSPACE:
+		return "decompressed image exceeds CONFIG_KERNEL_DECOMPRESS_MAX_SIZE";
+	case KERNEL_PAYLOAD_UNSUPPORTED:
+		return "format support not compiled in";
+	case KERNEL_PAYLOAD_NOMEM:
+		return "out of memory";
+	default:
+		return "unknown error";
+	}
+}
+
 int kernel_payload_load(void *dst, size_t dst_size, const void *src,
 			size_t src_size, size_t *out_size,
 			enum kernel_payload_format *format)

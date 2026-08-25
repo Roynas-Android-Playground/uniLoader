@@ -130,8 +130,9 @@ void arch_load_kernel(void* kernel, void* dt, void* ramdisk)
 				  kernel, input_size, &output_size, &format);
 	restore_alignment_checks(saved_sctlr);
 	if (ret) {
-		printk(KERN_ERR, "Kernel %s payload load failed: %d\n",
-		       kernel_payload_format_name(format), ret);
+		printk(KERN_ERR, "Kernel %s payload load failed: %d (%s)\n",
+		       kernel_payload_format_name(format), ret,
+		       kernel_payload_error_name(ret));
 		return;
 	}
 
